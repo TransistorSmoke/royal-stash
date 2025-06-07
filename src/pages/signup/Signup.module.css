@@ -1,0 +1,33 @@
+.container {
+	display: flex;
+	justify-content: center;
+	height: 60vh;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	width: 400px;
+	padding-top: 80px;
+}
+
+span,
+label {
+	display: block;
+}
+
+label {
+	margin-bottom: 16px;
+}
+
+span {
+	font-weight: 500;
+	margin-bottom: 4px;
+}
+
+input {
+	width: 100%;
+	padding: 8px 6px;
+	font-size: 1rem;
+	color: #777;
+}

@@ -1,9 +1,9 @@
-import './Navbar.css';
+import styles from './Navbar.module.css';
 
 export default function Navbar() {
 	return (
-		<nav className='nav'>
-			<div className='brand'>Royal Stash</div>
+		<nav className={styles.nav}>
+			<div className={styles.brand}>Royal Stash</div>
 			<ul>
 				<li>Login</li>
 				<li>Signup</li>
