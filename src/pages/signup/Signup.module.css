@@ -36,3 +36,7 @@ input {
 	font-size: 1rem;
 	color: #777;
 }
+
+.error {
+	color: red;
+}

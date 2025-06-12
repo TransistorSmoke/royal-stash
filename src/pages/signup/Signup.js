@@ -7,11 +7,19 @@ export default function Signup() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const { isPending, error, signup } = useSignup();
+	const [inputFieldError, setInputFieldError] = useState('');
 
 	const handleSignup = (e) => {
 		e.preventDefault();
 		console.log(displayName, email, password);
-		signup(email, password, displayName);
+
+		if (email === '' || password === '' || displayName === '') {
+			setInputFieldError(
+				'Please fill in your email, password and display name'
+			);
+		} else {
+			signup(email, password, displayName);
+		}
 	};
 
 	return (
@@ -42,6 +50,11 @@ export default function Signup() {
 					/>
 				</label>
 				<button className='btn btn-signup'>Sign up</button>
+
+				{error && <p className={styles.error}>{error}</p>}
+				{inputFieldError && (
+					<p className={styles.error}>{inputFieldError}</p>
+				)}
 			</form>
 		</div>
 	);
