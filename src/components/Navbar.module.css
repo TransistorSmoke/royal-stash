@@ -22,10 +22,10 @@
 }
 
 .nav li {
-	display: inline;
-	text-align: center;
 	margin: 0 16px;
 	padding: 0 16px;
+	display: flex;
+	align-items: center;
 }
 
 .nav li:last-child {

@@ -4,11 +4,16 @@
 	height: 60vh;
 }
 
-form {
+.signupForm {
 	display: flex;
 	flex-direction: column;
 	width: 400px;
 	padding-top: 80px;
+}
+
+.btnSignup {
+	/* width: 200px;
+	height: 40px; */
 }
 
 span,

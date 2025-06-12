@@ -4,7 +4,7 @@
 	height: 60vh;
 }
 
-form {
+.loginForm {
 	display: flex;
 	flex-direction: column;
 	width: 400px;
@@ -30,4 +30,8 @@ input {
 	padding: 8px 6px;
 	font-size: 1rem;
 	color: #777;
+}
+
+.error {
+	color: red;
 }
