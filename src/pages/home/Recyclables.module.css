@@ -1,0 +1,35 @@
+.table_component {
+	overflow: auto;
+	width: 100%;
+}
+
+.table_component table {
+	border: 1px solid #dededf;
+	height: 100%;
+	width: 100%;
+	table-layout: fixed;
+	border-collapse: collapse;
+	border-spacing: 1px;
+	text-align: left;
+}
+
+.table_component caption {
+	caption-side: top;
+	text-align: left;
+}
+
+.table_component th {
+	border: 1px solid #dededf;
+	background-color: #eceff1;
+	text-align: center;
+}
+
+.table_component td {
+	border: 1px solid #dededf;
+	background-color: #ffffff;
+}
+
+.table_component th,
+.table_component td {
+	padding: 8px 12px;
+}

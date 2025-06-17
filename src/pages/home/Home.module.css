@@ -1,18 +1,47 @@
 .container {
-	border: 2px solid red;
+	border: 2px solid #ccc;
 
 	display: grid;
 	grid-template-columns: 2fr 1fr;
 }
 
 .main-content {
-	border: 1px solid grey;
+	border: 1px solid #ccc;
 	margin: 8px;
 	padding: 12px 20px;
 }
 
 .sidebar {
-	border: 1px solid grey;
+	border: 1px solid #ccc;
 	margin: 8px;
 	padding: 12px 20px;
+}
+
+.sub-content {
+	padding: 12px 20px;
+	border: 1px solid #ccc;
+	margin: 8px;
+}
+
+.total-amount {
+	margin-bottom: 16px;
+	padding: 12px 20px;
+	text-align: center;
+}
+
+.total-amount h1 {
+	background-color: orange;
+	padding: 4px;
+	font-size: 4rem;
+	color: white;
+	margin: 16px auto;
+	border-radius: 24px;
+	width: 70%;
+}
+
+.divider {
+	width: 200px;
+	height: 5px;
+	background-color: orange;
+	margin: 0 auto 30px auto;
 }

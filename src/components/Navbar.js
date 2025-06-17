@@ -26,7 +26,10 @@ export default function Navbar() {
 					<>
 						<li>Hello, {user.displayName}</li>
 						<li>
-							<button className='btn' onClick={logout}>
+							<button
+								className={`btn ${styles['nav-btn']}`}
+								onClick={logout}
+							>
 								Logout
 							</button>
 						</li>
