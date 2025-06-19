@@ -14,7 +14,7 @@ export default function Recyclable({ items }) {
 	};
 
 	return (
-		<div className={styles['table_component']}>
+		<div className={styles['table-component']}>
 			<table>
 				<thead>
 					<tr>

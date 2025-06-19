@@ -6,8 +6,7 @@ export default function Form({ uid }) {
 	const [name, setName] = useState('');
 	const [type, setType] = useState('others');
 	const [error, setError] = useState(null);
-	const { addDocument, response, fsTransactionIsPending } =
-		useFirestore('recyclables');
+	const { addDocument, response, fsTransactionIsPending } = useFirestore('recyclables');
 
 	const addItemToStash = async (e) => {
 		e.preventDefault();
@@ -27,7 +26,6 @@ export default function Form({ uid }) {
 		setType(e.target.value);
 	};
 
-	console.log('fsTransactionIsPending: ', fsTransactionIsPending);
 	// reset the fields when transaction is added successfully
 	useEffect(() => {
 		if (response.success) {
@@ -42,11 +40,7 @@ export default function Form({ uid }) {
 			<form onSubmit={addItemToStash}>
 				<label className={styles['label-input']}>
 					<span>Name:</span>
-					<input
-						type='text'
-						onChange={(e) => setName(e.target.value)}
-						value={name}
-					/>
+					<input type='text' onChange={(e) => setName(e.target.value)} value={name} />
 				</label>
 				<label>
 					<span>Type:</span>
@@ -62,11 +56,12 @@ export default function Form({ uid }) {
 				</label>
 
 				{fsTransactionIsPending ? (
-					<button className={styles['btn-save']} disabled>
+					// <button className={styles['btn-save']} disabled>
+					<button className='btn' disabled>
 						Add to stash
 					</button>
 				) : (
-					<button className={styles['btn-save']}>Add to stash</button>
+					<button className='btn'>Add to stash</button>
 				)}
 
 				{error && <p className={styles.error}>{error}</p>}

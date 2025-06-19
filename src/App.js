@@ -4,6 +4,7 @@ import Signup from './pages/signup/Signup';
 import Login from './pages/login/Login';
 import Navbar from './components/Navbar';
 import { useAuthContext } from './hooks/useAuthContext';
+import './App.css';
 
 function App() {
 	const { authIsReady, user } = useAuthContext();

@@ -51,6 +51,7 @@ export const useFirestore = (collection) => {
 
 	const addDocument = async (doc) => {
 		// dispatch({ type: 'IS_PENDING' });
+		console.log('addDocument called with doc: ', doc);
 		setFsTransactionIsPending(true);
 
 		try {
