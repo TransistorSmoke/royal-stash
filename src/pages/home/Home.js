@@ -9,8 +9,20 @@ import Stash from './Stash';
 
 export default function Home() {
 	const { user } = useAuthContext();
-	const { documents, error } = useCollection('recyclables');
-	const { addDocument, response, fsTransactionIsPending } = useFirestore('stash');
+	const { documents: recyclables, error: errorRecyclables } = useCollection('recyclables');
+	const { documents: stash, error: errorStash } = useCollection('stash');
+	const {
+		addDocument: addStash,
+		response: responseStash,
+		fsTransactionIsPending: fsTransactionIsPendingStash
+	} = useFirestore('stash');
+	const {
+		addDocument: addRecyclables,
+		updateRecyclablesStatus,
+		response: responseRecyclables,
+		fsTransactionIsPending: fsTransactionIsPendingRecyclables
+	} = useFirestore('recyclables');
+
 	const [totalAmount, setTotalAmount] = useState(0);
 
 	const calculateTotalAmount = (items) => {
@@ -24,7 +36,7 @@ export default function Home() {
 		return amount;
 	};
 
-	const saveRecyclesAsGroup = async (items) => {
+	const saveRecyclablesAsGroup = async (items) => {
 		const itemsGroup = items?.map((item) => ({
 			id: item.id,
 			name: item.name
@@ -33,31 +45,36 @@ export default function Home() {
 		const totalAmt = calculateTotalAmount(itemsGroup)?.toFixed(2);
 
 		if (itemsGroup && itemsGroup.length > 0) {
-			await addDocument({
-				uid: user.uid,
-				item: itemsGroup,
-				totalAmt
-			});
+			try {
+				await updateRecyclablesStatus();
+				await addStash({
+					uid: user.uid,
+					item: itemsGroup,
+					totalAmt
+				});
+			} catch (err) {
+				console.error('Error saving recyclables as group:', err);
+			}
 		}
 	};
 
 	useEffect(() => {
-		calculateTotalAmount(documents);
-	}, [documents]);
+		calculateTotalAmount(recyclables);
+	}, [recyclables]);
 
 	return (
 		<div className={styles.container}>
 			<div className={styles['main-content']}>
-				{error && <p>{error}</p>}
+				{errorRecyclables && <p>{errorRecyclables}</p>}
 
-				{documents && (
+				{recyclables && (
 					<>
 						<h1 className={styles['title-current-stash']}>Current Recyclable Stash</h1>
-						<Recyclables items={documents} />
+						<Recyclables items={recyclables} />
 						<div className={styles.action}>
 							<button
 								className={`btn ${styles['btn-drop']}`}
-								onClick={() => saveRecyclesAsGroup(documents)}
+								onClick={() => saveRecyclablesAsGroup(recyclables)}
 							>
 								Drop For Recycling
 							</button>
@@ -75,7 +92,7 @@ export default function Home() {
 				<Form uid={user.uid} />
 			</div>
 			<div className={styles['sub-content']}>
-				<Stash />
+				<Stash stash={stash} user={user.displayName} />
 			</div>
 		</div>
 	);

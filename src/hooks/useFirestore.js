@@ -25,6 +25,15 @@ const firestoreReducer = (state, action) => {
 				success: true,
 				error: null
 			};
+
+		case 'UPDATED_RECYCLABLES_STATUS':
+			return {
+				isPending: false,
+				document: null,
+				success: true,
+				error: null
+			};
+
 		case 'ERROR':
 			return {
 				isPending: false,
@@ -98,9 +107,39 @@ export const useFirestore = (collection) => {
 		}
 	};
 
+	// UPDATE DOCUMENTS
+	// ----------------
+	const updateRecyclablesStatus = async () => {
+		try {
+			const querySnapshot = await collectionRef.where('isReturned', '==', false).get();
+
+			const batch = appFirestore.batch();
+
+			querySnapshot.forEach((doc) => {
+				const docRef = collectionRef.doc(doc.id);
+				batch.update(docRef, { isReturned: true });
+			});
+
+			const updateStatus = await batch.commit();
+
+			console.log('updateStatus: ', updateStatus);
+			dispatch({
+				type: 'UPDATED_RECYCLABLES_STATUS'
+			});
+		} catch (err) {
+			console.log(err);
+			dispatchIfNotCancelled({
+				type: 'ERROR',
+				payload: 'Could not update recyclables status'
+			});
+		}
+	};
+
+	// -----------------
+
 	// useEffect(() => {
 	// 	return () => setIsCancelled(true);
 	// }, []);
 
-	return { addDocument, response, fsTransactionIsPending };
+	return { addDocument, updateRecyclablesStatus, response, fsTransactionIsPending };
 };

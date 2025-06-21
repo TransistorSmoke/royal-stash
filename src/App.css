@@ -31,7 +31,7 @@ ul {
 	height: 50px;
 	color: #fff;
 	background: rgb(255, 157, 71);
-	transition: background 0.3s;
+	transition: background 0.1s ease-in-out, outline 0.1s ease-in-out;
 	font-weight: bold;
 	border: 1px solid white;
 	outline: 2px solid orange;
@@ -39,6 +39,8 @@ ul {
 }
 
 .btn:hover {
-	background: rgb(255, 143, 45);
-	transition: background 0.3s;
+	background: rgb(110, 110, 110);
+	outline: 2px solid rgb(110, 110, 110);
+	transition: background 0.1s ease-in-out, outline 0.1s ease-in-out;
+	cursor: pointer;
 }

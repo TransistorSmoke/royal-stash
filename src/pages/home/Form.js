@@ -5,6 +5,7 @@ import { useFirestore } from '../../hooks/useFirestore';
 export default function Form({ uid }) {
 	const [name, setName] = useState('');
 	const [type, setType] = useState('others');
+	const [isReturned, setIsReturned] = useState(false);
 	const [error, setError] = useState(null);
 	const { addDocument, response, fsTransactionIsPending } = useFirestore('recyclables');
 
@@ -15,7 +16,7 @@ export default function Form({ uid }) {
 			setError('Please enter a name for the item.');
 			return;
 		} else {
-			await addDocument({ uid, name, type });
+			await addDocument({ uid, name, type, isReturned });
 			setError(null);
 			setName('');
 			setType('others');
