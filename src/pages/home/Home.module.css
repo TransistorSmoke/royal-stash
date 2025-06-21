@@ -60,3 +60,14 @@
 .btn-drop {
 	width: 50% !important;
 }
+
+.notification {
+	border: 2px solid #ccc;
+	height: 90%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.notification p {
+}

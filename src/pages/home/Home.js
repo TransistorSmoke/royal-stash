@@ -24,6 +24,7 @@ export default function Home() {
 	} = useFirestore('recyclables');
 
 	const [totalAmount, setTotalAmount] = useState(0);
+	const [unrecycledItems, setUnrecycledItems] = useState([]);
 
 	const calculateTotalAmount = (items) => {
 		if (!items) {
@@ -59,8 +60,10 @@ export default function Home() {
 	};
 
 	useEffect(() => {
-		calculateTotalAmount(recyclables);
-	}, [recyclables]);
+		const forRecycling = recyclables?.filter((item) => !item.isReturned);
+		setUnrecycledItems(forRecycling);
+		calculateTotalAmount(forRecycling);
+	}, [recyclables, totalAmount]);
 
 	return (
 		<div className={styles.container}>
@@ -70,15 +73,23 @@ export default function Home() {
 				{recyclables && (
 					<>
 						<h1 className={styles['title-current-stash']}>Current Recyclable Stash</h1>
-						<Recyclables items={recyclables} />
-						<div className={styles.action}>
-							<button
-								className={`btn ${styles['btn-drop']}`}
-								onClick={() => saveRecyclablesAsGroup(recyclables)}
-							>
-								Drop For Recycling
-							</button>
-						</div>
+						{unrecycledItems && unrecycledItems.length > 0 ? (
+							<>
+								<Recyclables items={unrecycledItems} />
+								<div className={styles.action}>
+									<button
+										className={`btn ${styles['btn-drop']}`}
+										onClick={() => saveRecyclablesAsGroup(unrecycledItems)}
+									>
+										Drop For Recycling
+									</button>
+								</div>
+							</>
+						) : (
+							<div className={styles.notification}>
+								<h3>You do not have any new items to recycle. Start collecting now.</h3>
+							</div>
+						)}
 					</>
 				)}
 			</div>
