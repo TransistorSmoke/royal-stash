@@ -1,6 +1,12 @@
+import { useState } from 'react';
 import styles from './Recyclables.module.css';
+import { useFirestore } from '../../hooks/useFirestore';
+import { useCollection } from '../../hooks/useCollection';
 
 export default function Recyclable({ items }) {
+	const { deleteDocument } = useFirestore('recyclables');
+	const { documents, response } = useCollection('recyclables');
+	const [hoveredRowId, setHoveredRowId] = useState(null);
 	const formatDate = (date) => {
 		if (!date) return '';
 
@@ -13,6 +19,10 @@ export default function Recyclable({ items }) {
 		return formattedDate;
 	};
 
+	const handleDeleteItem = (id) => {
+		console.log('Deleting item with ID:', id);
+	};
+
 	return (
 		<div className={styles['table-component']}>
 			<table>
@@ -20,14 +30,31 @@ export default function Recyclable({ items }) {
 					<tr>
 						<th>Name</th>
 						<th>Type</th>
-						<th>Registered At</th>
+						<th>Added On</th>
 					</tr>
 					{items?.map((item) => {
 						return (
-							<tr key={item.id}>
+							<tr
+								className=''
+								key={item.id}
+								onMouseEnter={() => setHoveredRowId(item.id)}
+								onMouseLeave={() => setHoveredRowId(null)}
+							>
 								<td>{item.name}</td>
 								<td>{item.type}</td>
-								<td>{formatDate(item?.createdAt?.toDate())}</td>
+								<td>
+									<div className={styles['date-container']}>
+										{formatDate(item?.createdAt?.toDate())}
+										{hoveredRowId === item.id && (
+											<button
+												className={styles['btn-delete']}
+												onClick={() => handleDeleteItem(item.id)}
+											>
+												X
+											</button>
+										)}
+									</div>
+								</td>
 							</tr>
 						);
 					})}

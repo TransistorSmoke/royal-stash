@@ -135,11 +135,24 @@ export const useFirestore = (collection) => {
 		}
 	};
 
+	const deleteDocument = async (id) => {
+		dispatch({ type: 'IS_PENDING' });
+		try {
+			console.log('Ready to delete document with id: ', id);
+			const docRef = collectionRef.doc(id);
+			await docRef.delete();
+			dispatch({ type: 'DELETED_DOCUMENT' });
+			console.log('Document deleted successfully');
+		} catch (err) {
+			console.error('Error deleting document: ', err);
+		}
+	};
+
 	// -----------------
 
 	// useEffect(() => {
 	// 	return () => setIsCancelled(true);
 	// }, []);
 
-	return { addDocument, updateRecyclablesStatus, response, fsTransactionIsPending };
+	return { addDocument, deleteDocument, updateRecyclablesStatus, response, fsTransactionIsPending };
 };
