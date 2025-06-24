@@ -1,5 +1,4 @@
 .container {
-	border: 2px solid #ccc;
 	display: grid;
 	grid-template-columns: 2fr 1fr;
 	grid-template-rows: auto auto;
@@ -20,7 +19,6 @@
 .main-content,
 .sidebar,
 .sub-content {
-	border: 1px solid #ccc;
 	margin: 8px;
 	padding: 12px 20px;
 }

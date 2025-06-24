@@ -4,7 +4,6 @@
 }
 
 .table-component table {
-	border: 1px solid #dededf;
 	height: 100%;
 	width: 100%;
 	table-layout: fixed;
@@ -19,8 +18,6 @@
 }
 
 .table-component th {
-	border: 1px solid #dededf;
-	/* background-color: #eceff1; */
 	text-align: center;
 }
 
@@ -39,7 +36,6 @@
 
 .table-component td:last-child {
 	position: relative;
-	/* padding-right: 0 !important; */
 }
 
 .date-container {
@@ -52,8 +48,6 @@
 	background-color: rgb(255, 183, 183);
 	border: none;
 	color: #ffffff;
-	/* border-radius: 30px;
-	padding: 6px 10px; */
 	width: 18px;
 	height: 18px;
 	font-size: 12px;
@@ -73,8 +67,4 @@
 tr.hovered {
 	background-color: #f3f3f3;
 	transition: background-color 0.3s ease;
-}
-
-tr.default {
-	/* border: 2px solid red; */
 }

@@ -105,7 +105,12 @@ export default function Home() {
 			</div>
 			<div className={styles['sub-content']}>
 				<h1 className={styles['stash-header']}>Recycling History</h1>
-				<Stash stash={stash} user={user.displayName} />
+
+				{stash && stash.length > 0 ? (
+					<Stash stash={stash} user={user.displayName} />
+				) : (
+					<h3>You have not dropped any group of recyclables to a recycling kiosk.</h3>
+				)}
 			</div>
 		</div>
 	);
