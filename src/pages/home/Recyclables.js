@@ -32,10 +32,12 @@ export default function Recyclable({ items }) {
 						<th>Type</th>
 						<th>Added On</th>
 					</tr>
+				</thead>
+				<tbody>
 					{items?.map((item) => {
 						return (
 							<tr
-								className=''
+								className={`${styles.default} ${hoveredRowId === item.id ? styles.hovered : ''}`}
 								key={item.id}
 								onMouseEnter={() => setHoveredRowId(item.id)}
 								onMouseLeave={() => setHoveredRowId(null)}
@@ -58,8 +60,7 @@ export default function Recyclable({ items }) {
 							</tr>
 						);
 					})}
-				</thead>
-				<tbody></tbody>
+				</tbody>
 			</table>
 		</div>
 	);

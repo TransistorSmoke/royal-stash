@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useCollection } from '../../hooks/useCollection';
 import { useFirestore } from '../../hooks/useFirestore';
+import TotalAmount from './TotalAmount';
 import Recyclables from './Recyclables';
 import Stash from './Stash';
 
@@ -94,15 +95,16 @@ export default function Home() {
 				)}
 			</div>
 			<div className={styles.sidebar}>
-				<div className={styles['total-amount']}>
+				<div className={styles.amount}>
 					<h2>Total Amount</h2>
-					<h1>${totalAmount.toFixed(2)}</h1>
+					<TotalAmount amount={totalAmount} />
 					<p className={styles['']}>Total refund for all items in current recyclable group</p>
 				</div>
 				<div className={styles.divider}></div>
 				<Form uid={user.uid} />
 			</div>
 			<div className={styles['sub-content']}>
+				<h1 className={styles['stash-header']}>Recycling History</h1>
 				<Stash stash={stash} user={user.displayName} />
 			</div>
 		</div>
