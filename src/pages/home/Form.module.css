@@ -76,3 +76,14 @@
 .error {
 	color: red;
 }
+
+button.clear {
+	background-color: #eee;
+	border: 1px solid #ccc;
+	outline: 2px solid #eee;
+	color: #555;
+}
+
+button.clear:hover {
+	color: #fff;
+}

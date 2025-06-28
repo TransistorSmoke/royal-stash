@@ -41,6 +41,13 @@ export default function Form({ uid, stashId }) {
 		setType(e.target.value);
 	};
 
+	const resetForm = (e) => {
+		e.preventDefault();
+		setError(null);
+		setName('');
+		setType('others');
+	};
+
 	// reset the fields when transaction is added successfully
 	// Gets any unreturned recyclables at start of mounting
 	useEffect(() => {
@@ -48,6 +55,8 @@ export default function Form({ uid, stashId }) {
 			setName('');
 			setType('others');
 		}
+
+		console.log('Error: ', error);
 	}, [response.success, documents]);
 
 	return (
@@ -73,13 +82,22 @@ export default function Form({ uid, stashId }) {
 
 				{fsTransactionIsPending ? (
 					// <button className={styles['btn-save']} disabled>
-					<button className='btn' disabled>
-						Add to stash
-					</button>
+					<>
+						<button className='btn' disabled>
+							Add to stash
+						</button>
+						<button className={`btn ${styles.clear}`} onClick={resetForm}>
+							Clear
+						</button>
+					</>
 				) : (
-					<button className='btn'>Add to stash</button>
+					<>
+						<button className='btn'>Add to stash</button>
+						<button className={`btn ${styles.clear}`} onClick={resetForm}>
+							Clear
+						</button>
+					</>
 				)}
-
 				{error && <p className={styles.error}>{error}</p>}
 			</form>
 		</div>
