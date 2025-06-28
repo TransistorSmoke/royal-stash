@@ -55,8 +55,6 @@ export default function Form({ uid, stashId }) {
 			setName('');
 			setType('others');
 		}
-
-		console.log('Error: ', error);
 	}, [response.success, documents]);
 
 	return (

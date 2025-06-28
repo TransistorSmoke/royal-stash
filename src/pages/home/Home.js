@@ -11,8 +11,13 @@ import { generateUniqueId } from '../../utilities/utilities';
 
 export default function Home() {
 	const { user } = useAuthContext();
-	const { documents: recyclables, error: errorRecyclables } = useCollection('recyclables');
-	const { documents: stash, error: errorStash } = useCollection('stash');
+
+	const { documents: recyclables, error: errorRecyclables } = useCollection(
+		'recyclables',
+		['uid', '==', user.uid],
+		['createdAt', 'desc']
+	);
+	const { documents: stash, error: errorStash } = useCollection('stash', ['uid', '==', user.uid]);
 
 	const {
 		addDocument: addStash,
@@ -148,6 +153,7 @@ export default function Home() {
 				{stash && stash.length > 0 ? (
 					<Stash stash={stash} user={user.displayName} />
 				) : (
+					// <p>This is the stash</p>
 					<h3>You have not dropped any group of recyclables to a recycling kiosk.</h3>
 				)}
 			</div>

@@ -42,9 +42,13 @@
 	font-weight: bold;
 }
 
-.amount-highlight {
+.highlight {
 	background-color: orange;
 	color: white;
 	padding: 4px 8px;
 	border-radius: 4px;
+}
+
+.weight-strong {
+	font-weight: bold;
 }

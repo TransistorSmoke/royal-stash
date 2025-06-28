@@ -16,7 +16,14 @@ export default function RecyclableStash({ stash, user }) {
 		<>
 			{stash?.map((item) => (
 				<div className={styles.stash} key={item?.id}>
-					<div className={styles['stash-id']}>GROUP ID: {item?.stashId ? item.stashId : ''}</div>
+					<div className={styles['stash-id']}>
+						<p className={styles['weight-strong']}>
+							Stash #
+							<span className={`${styles.emphasis} ${styles.highlight}`}>
+								{item?.stashId ? item.stashId : ''}
+							</span>
+						</p>
+					</div>
 					<div className={styles.user}>
 						<p>
 							Dropped for recycling by <span className={styles.emphasis}>{user}</span> on{' '}
@@ -25,10 +32,7 @@ export default function RecyclableStash({ stash, user }) {
 					</div>
 					<div className={styles.amount}>
 						<p>
-							<span className={`${styles.emphasis} ${styles['amount-highlight']}`}>
-								${item?.totalAmt}
-							</span>{' '}
-							REFUNDED
+							<span className={`${styles.emphasis} ${styles.highlight}`}>${item?.totalAmt}</span> REFUNDED
 						</p>
 					</div>
 				</div>

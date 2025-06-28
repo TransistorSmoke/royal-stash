@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import styles from './Navbar.module.css';
 import { useLogout } from '../hooks/useLogout';
 import { useAuthContext } from '../hooks/useAuthContext';
+import logo from '../assets/logo.png';
 
 export default function Navbar() {
 	const { logout } = useLogout();
@@ -9,7 +10,9 @@ export default function Navbar() {
 
 	return (
 		<nav className={styles.nav}>
-			<div className={styles.brand}>Royal Stash</div>
+			<div className={styles.brand}>
+				<img src={logo} alt='logo of royal stash' className={styles.logo} />
+			</div>
 			<ul>
 				{!user && (
 					<>
@@ -24,9 +27,13 @@ export default function Navbar() {
 
 				{user && (
 					<>
-						<li>Hello, {user.displayName}</li>
+						<li className={styles.greeting}>
+							<p className={styles.text}>
+								Welcome, <span className={styles.name}>{user.displayName}</span>!
+							</p>
+						</li>
 						<li>
-							<button className={`btn ${styles['nav-btn']}`} onClick={logout}>
+							<button className={`btn ${styles.logout}`} onClick={logout}>
 								Logout
 							</button>
 						</li>

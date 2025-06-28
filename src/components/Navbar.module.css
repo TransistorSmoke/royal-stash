@@ -5,11 +5,17 @@
 	padding: 20px 32px;
 	display: flex;
 	justify-content: space-between;
-	background-color: orange;
+	/* background-color: orange; */
 }
 
 .brand {
-	margin-left: 50px;
+	display: flex;
+	align-items: center;
+}
+
+.logo {
+	margin-left: 20px;
+	width: 300px;
 }
 
 .nav ul {
@@ -33,7 +39,29 @@
 	padding-right: 0;
 }
 
-.nav-btn {
+button.logout {
+	/* background-color: #ba4040;
+	outline: 2px solid #ba4040; */
+	width: 100px;
+}
+
+.greeting {
 	font-weight: bold;
-	padding: 0 24px;
+	font-size: 28px;
+	display: inline;
+}
+
+.name {
+	color: orange;
+	font-weight: bold;
+	display: inline;
+	margin: 0 2px;
+	font-size: 32px;
+}
+
+.highlight {
+	background-color: orange;
+	color: white;
+	padding: 4px 8px;
+	border-radius: 4px;
 }
