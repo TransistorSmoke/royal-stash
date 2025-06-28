@@ -107,7 +107,11 @@ export default function Home() {
 					<>
 						<div className={styles.header}>
 							<h1 className={styles['title-current-stash']}>Current Recyclable Stash</h1>
-							<h1>Stash # {stashId}</h1>
+							<span className={styles.groupNum}>
+								<p>
+									GRP# <span className={styles.id}>{stashId}</span>
+								</p>
+							</span>
 						</div>
 						{unrecycledItems && unrecycledItems.length > 0 ? (
 							<>

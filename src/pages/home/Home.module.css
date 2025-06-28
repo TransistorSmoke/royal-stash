@@ -59,3 +59,16 @@
 	justify-content: space-between;
 	align-items: center;
 }
+
+.groupNum {
+	padding: 10px;
+	background-color: #555;
+	color: #fff;
+	font-weight: bold;
+}
+
+.id {
+	color: orange;
+	display: inline;
+	text-transform: uppercase;
+}
