@@ -3,6 +3,15 @@ import { formatDate } from '../../utilities/utilities';
 import styles from './Stash.module.css';
 
 export default function RecyclableStash({ stash, user }) {
+	/*
+    -----------------------
+    4. For next feature, for those returned items (isReturned === true), map them by group (by their return dates),
+      and assign a stash ID for each of them. And save.
+      4.1. Add a button in the Stashs section in the Home page.
+    -----------------------
+
+  */
+
 	return (
 		<>
 			{stash?.map((item) => (

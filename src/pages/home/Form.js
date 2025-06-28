@@ -1,22 +1,36 @@
 import { useState, useEffect } from 'react';
 import styles from './Form.module.css';
 import { useFirestore } from '../../hooks/useFirestore';
+import { useCollection } from '../../hooks/useCollection';
+import { generateUniqueId } from '../../utilities/utilities';
 
-export default function Form({ uid }) {
+export default function Form({ uid, stashId }) {
 	const [name, setName] = useState('');
 	const [type, setType] = useState('others');
 	const [isReturned, setIsReturned] = useState(false);
 	const [error, setError] = useState(null);
 	const { addDocument, response, fsTransactionIsPending } = useFirestore('recyclables');
+	const { documents, error: errorRecyclables } = useCollection('recyclables');
+	// const { stashId, setStashId } = useState('');
 
 	const addItemToStash = async (e) => {
 		e.preventDefault();
+
+		/*
+    	1. When saving, observe the isReturned field.
+    	2. Filter items where isReturned is false.
+    	3. If there are items that are not returned yet (isReturned === false), meaning they are not recycled yet,
+      	generate a stash ID and assign it to each of them.
+  	*/
+
+		console.log('Stash ID passed to Form: ', stashId);
+
 		if (name.trim() === '') {
 			console.log('Please enter a name for the item.');
 			setError('Please enter a name for the item.');
 			return;
 		} else {
-			await addDocument({ uid, name, type, isReturned });
+			await addDocument({ uid, name, type, isReturned, stashId });
 			setError(null);
 			setName('');
 			setType('others');
@@ -28,12 +42,13 @@ export default function Form({ uid }) {
 	};
 
 	// reset the fields when transaction is added successfully
+	// Gets any unreturned recyclables at start of mounting
 	useEffect(() => {
 		if (response.success) {
 			setName('');
 			setType('others');
 		}
-	}, [response.success]);
+	}, [response.success, documents]);
 
 	return (
 		<div className={styles['form-save']}>

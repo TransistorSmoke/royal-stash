@@ -7,16 +7,19 @@ import { useFirestore } from '../../hooks/useFirestore';
 import TotalAmount from './TotalAmount';
 import Recyclables from './Recyclables';
 import Stash from './Stash';
+import { generateUniqueId } from '../../utilities/utilities';
 
 export default function Home() {
 	const { user } = useAuthContext();
 	const { documents: recyclables, error: errorRecyclables } = useCollection('recyclables');
 	const { documents: stash, error: errorStash } = useCollection('stash');
+
 	const {
 		addDocument: addStash,
 		response: responseStash,
 		fsTransactionIsPending: fsTransactionIsPendingStash
 	} = useFirestore('stash');
+
 	const {
 		addDocument: addRecyclables,
 		updateRecyclablesStatus,
@@ -26,6 +29,7 @@ export default function Home() {
 
 	const [totalAmount, setTotalAmount] = useState(0);
 	const [unrecycledItems, setUnrecycledItems] = useState([]);
+	const [stashId, setStashId] = useState(null);
 
 	const calculateTotalAmount = (items) => {
 		if (!items) {
@@ -52,7 +56,8 @@ export default function Home() {
 				await addStash({
 					uid: user.uid,
 					item: itemsGroup,
-					totalAmt
+					totalAmt,
+					stashId
 				});
 			} catch (err) {
 				console.error('Error saving recyclables as group:', err);
@@ -61,9 +66,36 @@ export default function Home() {
 	};
 
 	useEffect(() => {
-		const forRecycling = recyclables?.filter((item) => !item.isReturned);
-		setUnrecycledItems(forRecycling);
-		calculateTotalAmount(forRecycling);
+		const unreturnedForRecycling = recyclables?.filter((item) => !item.isReturned);
+		setUnrecycledItems(unreturnedForRecycling);
+		calculateTotalAmount(unreturnedForRecycling);
+
+		console.log('unreturnedForRecycling: ', unreturnedForRecycling);
+
+		if (unreturnedForRecycling && unreturnedForRecycling.length === 0) {
+			setStashId(generateUniqueId());
+		} else {
+			const itemWithId = unrecycledItems?.find((item) => item.stashId);
+			console.log('currently available item with Stash ID: ', itemWithId);
+			console.log(itemWithId?.stashId);
+			setStashId(itemWithId?.stashId);
+		}
+		console.log('stashId: ', stashId);
+		/*
+		-------
+		PROCESS
+		-------
+		- If forRecycling is not empty (there are items in it!), check if there is stash ID for each of item.
+			- If any one of them has a stash ID, use it as stash ID for the current item.
+
+			- If there are items that have no stash ID:
+				- Group each of these by their RETURN/DROP OFF DATE.
+				- Add a stash ID to each item of these groups.
+
+		- Else
+			- If there is no unreturned recyclables, we have a new batch of recyclables.
+			- Therefore, generate a new unique stash ID for a new group of items.
+		*/
 	}, [recyclables, totalAmount]);
 
 	return (
@@ -73,7 +105,10 @@ export default function Home() {
 
 				{recyclables && (
 					<>
-						<h1 className={styles['title-current-stash']}>Current Recyclable Stash</h1>
+						<div className={styles.header}>
+							<h1 className={styles['title-current-stash']}>Current Recyclable Stash</h1>
+							<h1>Stash # {stashId}</h1>
+						</div>
 						{unrecycledItems && unrecycledItems.length > 0 ? (
 							<>
 								<Recyclables items={unrecycledItems} />
@@ -101,7 +136,7 @@ export default function Home() {
 					<p className={styles['']}>Total refund for all items in current recyclable group</p>
 				</div>
 				<div className={styles.divider}></div>
-				<Form uid={user.uid} />
+				<Form uid={user.uid} stashId={stashId} />
 			</div>
 			<div className={styles['sub-content']}>
 				<h1 className={styles['stash-header']}>Recycling History</h1>
