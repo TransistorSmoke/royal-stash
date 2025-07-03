@@ -1,17 +1,7 @@
-import { useState } from 'react';
 import { formatDate } from '../../utilities/utilities';
 import styles from './Stash.module.css';
 
 export default function RecyclableStash({ stash, user }) {
-	/*
-    -----------------------
-    4. For next feature, for those returned items (isReturned === true), map them by group (by their return dates),
-      and assign a stash ID for each of them. And save.
-      4.1. Add a button in the Stashs section in the Home page.
-    -----------------------
-
-  */
-
 	return (
 		<>
 			{stash?.map((item) => (
@@ -19,9 +9,11 @@ export default function RecyclableStash({ stash, user }) {
 					<div className={styles['stash-id']}>
 						<p className={styles['weight-strong']}>
 							Stash #
-							<span className={`${styles.emphasis} ${styles.highlight}`}>
-								{item?.stashId ? item.stashId : ''}
-							</span>
+							{item && item.stashId && (
+								<span className={`${styles.emphasis} ${styles.highlight}`}>
+									{item?.stashId ? item.stashId : ''}
+								</span>
+							)}
 						</p>
 					</div>
 					<div className={styles.user}>

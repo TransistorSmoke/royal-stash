@@ -23,8 +23,6 @@ export default function Form({ uid, stashId }) {
       	generate a stash ID and assign it to each of them.
   	*/
 
-		console.log('Stash ID passed to Form: ', stashId);
-
 		if (name.trim() === '') {
 			console.log('Please enter a name for the item.');
 			setError('Please enter a name for the item.');
@@ -48,7 +46,7 @@ export default function Form({ uid, stashId }) {
 		setType('others');
 	};
 
-	// reset the fields when transaction is added successfully
+	// Reset the fields when transaction is added successfully
 	// Gets any unreturned recyclables at start of mounting
 	useEffect(() => {
 		if (response.success) {
@@ -79,7 +77,6 @@ export default function Form({ uid, stashId }) {
 				</label>
 
 				{fsTransactionIsPending ? (
-					// <button className={styles['btn-save']} disabled>
 					<>
 						<button className='btn' disabled>
 							Add to stash

@@ -1,0 +1,23 @@
+.container {
+	border: 2px solid white;
+	outline: 2px solid #eee;
+	background-color: rgb(255, 239, 222);
+	width: 60%;
+	padding: 4px;
+	border-radius: 20px;
+	margin: 12px 0;
+	display: flex;
+	align-items: center;
+}
+
+.info {
+	font-size: 1.2rem;
+	padding: 12px;
+	font-weight: 400;
+	line-height: 1.5;
+}
+
+.bottle {
+	width: 100px;
+	margin: 16px;
+}

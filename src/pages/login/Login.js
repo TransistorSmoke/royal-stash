@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useLogin } from '../../hooks/useLogin';
 import styles from './login.module.css';
+import InfoBar from '../../components/Infobar';
 
 export default function Login() {
 	const [email, setEmail] = useState('');
@@ -21,22 +22,15 @@ export default function Login() {
 
 	return (
 		<div className={styles.container}>
-			<form onSubmit={handleSubmit} className={styles.loginForm}>
+			<InfoBar />
+			<form onSubmit={handleSubmit} className={styles.loginform}>
 				<label>
 					<span>Email:</span>
-					<input
-						type='email'
-						onChange={(e) => setEmail(e.target.value)}
-						value={email}
-					/>
+					<input type='email' onChange={(e) => setEmail(e.target.value)} value={email} />
 				</label>
 				<label>
 					<span>Password:</span>
-					<input
-						type='password'
-						onChange={(e) => setPassword(e.target.value)}
-						value={password}
-					/>
+					<input type='password' onChange={(e) => setPassword(e.target.value)} value={password} />
 				</label>
 
 				{isPending ? (
@@ -48,9 +42,7 @@ export default function Login() {
 				)}
 
 				{error && <p className={styles.error}>ERROR: {error}</p>}
-				{inputFieldErrors && (
-					<p className={styles.error}>{inputFieldErrors}</p>
-				)}
+				{inputFieldErrors && <p className={styles.error}>{inputFieldErrors}</p>}
 			</form>
 		</div>
 	);

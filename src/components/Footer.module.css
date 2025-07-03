@@ -1,0 +1,21 @@
+.container {
+	width: 100%;
+	background-color: orange;
+	height: 60px;
+	/* position: absolute;
+	bottom: 0; */
+	color: #fff;
+	font-size: 0.9rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	box-sizing: border-box;
+	padding: 12px;
+	outline: 2px solid orange;
+	border-top: 2px solid white;
+}
+
+.container p {
+	font-weight: 500;
+	color: #000;
+}

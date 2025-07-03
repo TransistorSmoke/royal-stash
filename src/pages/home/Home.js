@@ -35,6 +35,7 @@ export default function Home() {
 	const [totalAmount, setTotalAmount] = useState(0);
 	const [unrecycledItems, setUnrecycledItems] = useState([]);
 	const [stashId, setStashId] = useState(null);
+	const [totalStashRefundAmount, setTotalStashRefundAmount] = useState(0);
 
 	const calculateTotalAmount = (items) => {
 		if (!items) {
@@ -75,17 +76,16 @@ export default function Home() {
 		setUnrecycledItems(unreturnedForRecycling);
 		calculateTotalAmount(unreturnedForRecycling);
 
-		console.log('unreturnedForRecycling: ', unreturnedForRecycling);
-
 		if (unreturnedForRecycling && unreturnedForRecycling.length === 0) {
 			setStashId(generateUniqueId());
 		} else {
 			const itemWithId = unrecycledItems?.find((item) => item.stashId);
-			console.log('currently available item with Stash ID: ', itemWithId);
-			console.log(itemWithId?.stashId);
 			setStashId(itemWithId?.stashId);
 		}
-		console.log('stashId: ', stashId);
+
+		const totalRefundedAmount = stash?.reduce((sum, item) => sum + parseFloat(item.totalAmt), 0);
+		setTotalStashRefundAmount(totalRefundedAmount);
+
 		/*
 		-------
 		PROCESS
@@ -101,7 +101,7 @@ export default function Home() {
 			- If there is no unreturned recyclables, we have a new batch of recyclables.
 			- Therefore, generate a new unique stash ID for a new group of items.
 		*/
-	}, [recyclables, totalAmount]);
+	}, [recyclables, totalAmount, stash]);
 
 	return (
 		<div className={styles.container}>
@@ -114,7 +114,7 @@ export default function Home() {
 							<h1 className={styles['title-current-stash']}>Current Recyclable Stash</h1>
 							<span className={styles.groupNum}>
 								<p>
-									GRP# <span className={styles.id}>{stashId}</span>
+									STASH# <span className={styles.id}>{stashId}</span>
 								</p>
 							</span>
 						</div>
@@ -148,12 +148,22 @@ export default function Home() {
 				<Form uid={user.uid} stashId={stashId} />
 			</div>
 			<div className={styles['sub-content']}>
-				<h1 className={styles['stash-header']}>Recycling History</h1>
+				<div className={styles['stash-header']}>
+					<h1>Recycling History</h1>
+				</div>
+
+				{totalStashRefundAmount && (
+					<div className={styles['section-refund']}>
+						<p className={styles['refund-notification']}>
+							Congratulations! You earned a total of{' '}
+							<span className={styles.total}>${totalStashRefundAmount.toFixed(2)}</span> from recycling.
+						</p>
+					</div>
+				)}
 
 				{stash && stash.length > 0 ? (
 					<Stash stash={stash} user={user.displayName} />
 				) : (
-					// <p>This is the stash</p>
 					<h3>You have not dropped any group of recyclables to a recycling kiosk.</h3>
 				)}
 			</div>

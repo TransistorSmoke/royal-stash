@@ -28,7 +28,7 @@
 }
 
 .nav li {
-	margin: 0 16px;
+	margin: 0 8px;
 	padding: 0 16px;
 	display: flex;
 	align-items: center;
@@ -37,6 +37,28 @@
 .nav li:last-child {
 	margin-right: 0;
 	padding-right: 0;
+}
+
+.navlink {
+	padding: 4px 20px;
+	background-color: orange;
+	border-radius: 6px;
+	transition: background-color 0.3s ease;
+
+	outline: 2px solid orange;
+	border: 2px solid white;
+}
+
+.navlink a {
+	text-decoration: none;
+	color: white;
+}
+
+.navlink:hover {
+	cursor: pointer;
+	background-color: rgb(110, 110, 110);
+	outline: 2px solid rgb(110, 110, 110);
+	transition: background-color 0.3s ease;
 }
 
 button.logout {

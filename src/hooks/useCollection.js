@@ -7,7 +7,6 @@ export const useCollection = (collection, _query, _orderBy = null) => {
 
 	/*
 		_query (and _orderBy) is recreated every render, causing the trigger of use effect (as _query/_orderBy is a dependency array).
-
 		Both _query and _orderBy ar arrays and are 'different' with every render.
 
 		It causes infinite re-rendering.
@@ -19,12 +18,6 @@ export const useCollection = (collection, _query, _orderBy = null) => {
 
 	const query = useRef(_query).current;
 	const orderBy = useRef(_orderBy).current;
-
-	if (collection === 'recyclables') {
-		console.log('order  by - recyclables: ', orderBy);
-	} else {
-		console.log('order  by - stash: ', orderBy);
-	}
 
 	useEffect(() => {
 		let ref = appFirestore.collection(collection);

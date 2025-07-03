@@ -14,9 +14,6 @@ export const authReducer = (state, action) => {
 		case 'AUTH_IS_READY':
 			return { ...state, user: action.payload, authIsReady: true };
 
-		// case 'STASH_ID_GENERATED':
-		// 	return { ...state, stashId: action.payload };
-
 		default:
 			return state;
 	}
@@ -26,7 +23,6 @@ export const AuthContextProvider = ({ children }) => {
 	const [state, dispatch] = useReducer(authReducer, {
 		user: null,
 		authIsReady: false
-		// stashId: null
 	});
 
 	// Fires when the app first load to check if user is logged in or not
@@ -36,15 +32,7 @@ export const AuthContextProvider = ({ children }) => {
 
 			unsub();
 		});
-
-		// if (!state.stashId) {
-		// 	// Generate a unique ID for new recyclables group and use it as stash ID
-		// 	const stashId = generateUniqueId();
-		// 	dispatch({ type: 'STASH_ID_GENERATED', payload: stashId });
-		// }
 	}, []);
-
-	console.log('AuthContext state: ', state);
 
 	return <AuthContext.Provider value={{ ...state, dispatch }}>{children}</AuthContext.Provider>;
 };

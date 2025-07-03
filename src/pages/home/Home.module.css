@@ -2,7 +2,9 @@
 	display: grid;
 	grid-template-columns: 2fr 1fr;
 	grid-template-rows: auto auto;
-	margin: 50px 0;
+	margin: 20px 0;
+
+	/* height: 120vh; */
 }
 
 .sub-content {
@@ -17,8 +19,7 @@
 	margin: 8px;
 	padding: 12px 20px;
 }
-
-.title-current-stash {
+∂ .title-current-stash {
 	margin-bottom: 12px;
 	text-align: center;
 }
@@ -52,13 +53,50 @@
 }
 
 .stash-header {
-	margin: 16px;
+	padding: 16px 8px;
+	margin-bottom: 16px;
+	background-color: orange;
+	color: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+}
+
+.section-refund {
+	margin: 16px 0;
+}
+
+.refund-notification {
+	padding: 8px;
+	font-size: 1.5rem;
+	font-weight: 500;
+	background-color: #ccc;
+	outline: 2px solid #ccc;
+	border: 2px solid #fff;
+}
+
+.section-refund .total {
+	display: inline-block;
+	margin: 0 4px;
+	padding: 0 12px;
+	background-color: #555;
+	color: orange;
+	font-weight: bold;
+	font-size: 1.75rem;
+	transition: color 0.1s ease;
+}
+
+.section-refund .total:hover {
+	cursor: pointer;
+	color: #fff;
+	background-color: #777;
+	transition: color 0.1s ease;
 }
 
 .groupNum {

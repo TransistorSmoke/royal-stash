@@ -5,6 +5,7 @@ import Login from './pages/login/Login';
 import Navbar from './components/Navbar';
 import { useAuthContext } from './hooks/useAuthContext';
 import './App.css';
+import Footer from './components/Footer';
 
 function App() {
 	const { authIsReady, user } = useAuthContext();
@@ -13,25 +14,28 @@ function App() {
 			{authIsReady && (
 				<BrowserRouter>
 					<Navbar />
-					<Switch>
-						<Route exact path='/'>
-							{!user && <Redirect to='/login' />}
-							{user && <Home />}
-						</Route>
-						<Route path='/login'>
-							{user && <Redirect to='/' />}
-							{!user && <Login />}
-						</Route>
-						<Route path='/signup'>
-							{user && <Redirect to='/' />}
-							{!user && <Signup />}
-						</Route>
+					<main>
+						<Switch>
+							<Route exact path='/'>
+								{!user && <Redirect to='/login' />}
+								{user && <Home />}
+							</Route>
+							<Route path='/login'>
+								{user && <Redirect to='/' />}
+								{!user && <Login />}
+							</Route>
+							<Route path='/signup'>
+								{user && <Redirect to='/' />}
+								{!user && <Signup />}
+							</Route>
 
-						{/* // Redirect all other random routes to home */}
-						<Route path='*'>
-							<Redirect to='/' />
-						</Route>
-					</Switch>
+							{/* // Redirect all other random routes to home */}
+							<Route path='*'>
+								<Redirect to='/' />
+							</Route>
+						</Switch>
+					</main>
+					<Footer />
 				</BrowserRouter>
 			)}
 		</div>

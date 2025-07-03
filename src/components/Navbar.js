@@ -11,16 +11,22 @@ export default function Navbar() {
 	return (
 		<nav className={styles.nav}>
 			<div className={styles.brand}>
-				<img src={logo} alt='logo of royal stash' className={styles.logo} />
+				<Link to='/'>
+					<img src={logo} alt='logo of royal stash' className={styles.logo} />
+				</Link>
 			</div>
 			<ul>
 				{!user && (
 					<>
 						<li>
-							<Link to='/login'>Login</Link>
+							<span className={styles.navlink}>
+								<Link to='/login'>Login</Link>
+							</span>
 						</li>
 						<li>
-							<Link to='/signup'>Signup</Link>
+							<span className={styles.navlink}>
+								<Link to='/signup'>Signup</Link>
+							</span>
 						</li>
 					</>
 				)}
