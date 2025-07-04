@@ -31,7 +31,7 @@
 
 .table-component th,
 .table-component td {
-	padding: 5px 16px;
+	padding: 10px 16px;
 }
 
 .table-component td:last-child {
