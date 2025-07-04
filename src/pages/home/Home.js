@@ -6,6 +6,7 @@ import { useCollection } from '../../hooks/useCollection';
 import { useFirestore } from '../../hooks/useFirestore';
 import TotalAmount from './TotalAmount';
 import Recyclables from './Recyclables';
+import Loading from '../../components/Loading';
 import Stash from './Stash';
 import { generateUniqueId } from '../../utilities/utilities';
 
@@ -108,16 +109,23 @@ export default function Home() {
 			<div className={styles['main-content']}>
 				{errorRecyclables && <p>{errorRecyclables}</p>}
 
-				{recyclables && (
+				<div className={styles.header}>
+					<h1 className={styles['title-current-stash']}>Current Recyclable Stash</h1>
+					<span className={styles.groupNum}>
+						<p>
+							STASH# <span className={styles.id}>{stashId}</span>
+						</p>
+					</span>
+				</div>
+
+				{!recyclables && (
+					<div className={styles['loading-section']}>
+						<Loading />
+					</div>
+				)}
+
+				{recyclables && !errorRecyclables && (
 					<>
-						<div className={styles.header}>
-							<h1 className={styles['title-current-stash']}>Current Recyclable Stash</h1>
-							<span className={styles.groupNum}>
-								<p>
-									STASH# <span className={styles.id}>{stashId}</span>
-								</p>
-							</span>
-						</div>
 						{unrecycledItems && unrecycledItems.length > 0 ? (
 							<>
 								<Recyclables items={unrecycledItems} />
@@ -132,12 +140,13 @@ export default function Home() {
 							</>
 						) : (
 							<div className={styles.notification}>
-								<h3>You do not have any new items to recycle. Start collecting now.</h3>
+								<h3>You do not have any item to recycle. Start collecting now.</h3>
 							</div>
 						)}
 					</>
 				)}
 			</div>
+
 			<div className={styles.sidebar}>
 				<div className={styles.amount}>
 					<h2>Total Amount</h2>
@@ -152,7 +161,13 @@ export default function Home() {
 					<h1>Recycling History</h1>
 				</div>
 
-				{totalStashRefundAmount && (
+				{!stash && (
+					<div className={styles['loading-section']}>
+						<Loading />
+					</div>
+				)}
+
+				{stash && totalStashRefundAmount && (
 					<div className={styles['section-refund']}>
 						<p className={styles['refund-notification']}>
 							Congratulations! You earned a total of{' '}
@@ -161,10 +176,14 @@ export default function Home() {
 					</div>
 				)}
 
-				{stash && stash.length > 0 ? (
-					<Stash stash={stash} user={user.displayName} />
+				{stash ? (
+					stash.length > 0 ? (
+						<Stash stash={stash} user={user.displayName} />
+					) : (
+						<h3>You have not dropped any group of recyclables to a recycling kiosk.</h3>
+					)
 				) : (
-					<h3>You have not dropped any group of recyclables to a recycling kiosk.</h3>
+					''
 				)}
 			</div>
 		</div>

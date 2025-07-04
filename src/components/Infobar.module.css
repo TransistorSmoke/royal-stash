@@ -17,6 +17,10 @@
 	line-height: 1.5;
 }
 
+.info p {
+	margin: 8px 0;
+}
+
 .bottle {
 	width: 100px;
 	margin: 16px;
