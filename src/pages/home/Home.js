@@ -1,6 +1,6 @@
 import styles from './Home.module.css';
 import Form from './Form';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { useCollection } from '../../hooks/useCollection';
 import { useFirestore } from '../../hooks/useFirestore';
@@ -8,6 +8,7 @@ import TotalAmount from './TotalAmount';
 import Recyclables from './Recyclables';
 import Loading from '../../components/Loading';
 import Stash from './Stash';
+import Dialog from '../../components/Dialog';
 import { generateUniqueId } from '../../utilities/utilities';
 
 export default function Home() {
@@ -27,7 +28,6 @@ export default function Home() {
 	} = useFirestore('stash');
 
 	const {
-		addDocument: addRecyclables,
 		updateRecyclablesStatus,
 		response: responseRecyclables,
 		fsTransactionIsPending: fsTransactionIsPendingRecyclables
@@ -72,6 +72,20 @@ export default function Home() {
 		}
 	};
 
+	const deleteNotificationHandler = () => {
+		if (dialogRef.current && !dialogRef.current.open) {
+			dialogRef.current.showModal(); // or .show()
+		}
+	};
+
+	const dialogRef = useRef(null);
+
+	const openDialog = () => {
+		if (dialogRef.current && !dialogRef.current.open) {
+			dialogRef.current.showModal();
+		}
+	};
+
 	useEffect(() => {
 		const unreturnedForRecycling = recyclables?.filter((item) => !item.isReturned);
 		setUnrecycledItems(unreturnedForRecycling);
@@ -106,6 +120,7 @@ export default function Home() {
 
 	return (
 		<div className={styles.container}>
+			<Dialog ref={dialogRef} />
 			<div className={styles['main-content']}>
 				{errorRecyclables && <p>{errorRecyclables}</p>}
 
@@ -170,7 +185,7 @@ export default function Home() {
 				{stash && totalStashRefundAmount && (
 					<div className={styles['section-refund']}>
 						<p className={styles['refund-notification']}>
-							Congratulations! You earned a total of{' '}
+							Congratulations! You earned a total of
 							<span className={styles.total}>${totalStashRefundAmount.toFixed(2)}</span> from recycling.
 						</p>
 					</div>

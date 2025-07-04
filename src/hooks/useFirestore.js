@@ -67,8 +67,7 @@ export const useFirestore = (collection) => {
 	};
 
 	const addDocument = async (doc) => {
-		// dispatch({ type: 'IS_PENDING' });
-		console.log('addDocument called with doc: ', doc);
+		dispatch({ type: 'IS_PENDING' });
 		setFsTransactionIsPending(true);
 
 		try {
@@ -115,12 +114,9 @@ export const useFirestore = (collection) => {
 		}
 	};
 
-	// UPDATE DOCUMENTS
-	// ----------------
 	const updateRecyclablesStatus = async () => {
 		try {
 			const querySnapshot = await collectionRef.where('isReturned', '==', false).get();
-
 			const batch = appFirestore.batch();
 
 			querySnapshot.forEach((doc) => {
@@ -128,12 +124,19 @@ export const useFirestore = (collection) => {
 				batch.update(docRef, { isReturned: true });
 			});
 
-			const updateStatus = await batch.commit();
+			await batch.commit();
 
-			console.log('updateStatus: ', updateStatus);
-			dispatch({
-				type: 'UPDATED_RECYCLABLES_STATUS'
-			});
+			// Uncomment prior to building/deployment
+			// ---------------------------------------
+			// dispatchIfNotCancelled({
+			// 	type: 'UPDATED_RECYCLABLES_STATUS',
+			// });
+			// ---------------------------------------
+
+			// Remove prior to building/deployment
+			// ---------------------------------------
+			dispatch({ type: 'UPDATED_RECYCLABLES_STATUS' });
+			// ---------------------------------------
 		} catch (err) {
 			console.log(err);
 			dispatchIfNotCancelled({
@@ -149,7 +152,18 @@ export const useFirestore = (collection) => {
 			console.log('Ready to delete document with id: ', id);
 			const docRef = collectionRef.doc(id);
 			await docRef.delete();
+
+			// Uncomment prior to building/deployment
+			// ---------------------------------------
+			// dispatchIfNotCancelled({
+			// 	type: 'DELETED_DOCUMENT'
+			// });
+			// ---------------------------------------
+
+			// Remove prior to building/deployment
+			// ---------------------------------------
 			dispatch({ type: 'DELETED_DOCUMENT' });
+			// ---------------------------------------
 			console.log('Document deleted successfully');
 		} catch (err) {
 			console.error('Error deleting document: ', err);

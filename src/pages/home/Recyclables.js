@@ -1,11 +1,10 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import styles from './Recyclables.module.css';
 import { useFirestore } from '../../hooks/useFirestore';
 import { useCollection } from '../../hooks/useCollection';
 
 export default function Recyclable({ items }) {
-	const { deleteDocument } = useFirestore('recyclables');
-	const { documents, response } = useCollection('recyclables');
+	const { deleteDocument, response } = useFirestore('recyclables');
 	const [hoveredRowId, setHoveredRowId] = useState(null);
 	const formatDate = (date) => {
 		if (!date) return '';
