@@ -9,7 +9,7 @@ const initialState = {
 };
 
 const firestoreReducer = (state, action) => {
-	console.log('action passed: ', action);
+	// console.log('action passed: ', action);
 	switch (action.type) {
 		case 'IS_PENDING':
 			return {
@@ -60,7 +60,6 @@ export const useFirestore = (collection) => {
 	const [fsTransactionIsPending, setFsTransactionIsPending] = useState(false);
 	const collectionRef = appFirestore.collection(collection);
 	const dispatchIfNotCancelled = (action) => {
-		console.log('isCancelled', isCancelled);
 		if (!isCancelled) {
 			dispatch(action);
 		}

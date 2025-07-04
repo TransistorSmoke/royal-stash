@@ -3,7 +3,7 @@ import styles from './Recyclables.module.css';
 import { useFirestore } from '../../hooks/useFirestore';
 import { useCollection } from '../../hooks/useCollection';
 
-export default function Recyclable({ items }) {
+export default function Recyclable({ items, dialogHandler }) {
 	const { deleteDocument, response } = useFirestore('recyclables');
 	const [hoveredRowId, setHoveredRowId] = useState(null);
 	const formatDate = (date) => {
@@ -18,8 +18,9 @@ export default function Recyclable({ items }) {
 		return formattedDate;
 	};
 
-	const handleDeleteItem = (id) => {
-		console.log('Deleting item with ID:', id);
+	const onClickDelete = (item) => {
+		console.log('Deleting item with ID:', item.id);
+		dialogHandler(item);
 	};
 
 	return (
@@ -49,7 +50,7 @@ export default function Recyclable({ items }) {
 										{hoveredRowId === item.id && (
 											<button
 												className={styles['btn-delete']}
-												onClick={() => handleDeleteItem(item.id)}
+												onClick={() => onClickDelete(item)}
 											>
 												X
 											</button>

@@ -9,34 +9,32 @@ import Recyclables from './Recyclables';
 import Loading from '../../components/Loading';
 import Stash from './Stash';
 import Dialog from '../../components/Dialog';
+import { ToastContainer, toast } from 'react-toastify';
 import { generateUniqueId } from '../../utilities/utilities';
 
 export default function Home() {
 	const { user } = useAuthContext();
-
 	const { documents: recyclables, error: errorRecyclables } = useCollection(
 		'recyclables',
 		['uid', '==', user.uid],
 		['createdAt', 'desc']
 	);
 	const { documents: stash, error: errorStash } = useCollection('stash', ['uid', '==', user.uid]);
-
 	const {
 		addDocument: addStash,
 		response: responseStash,
 		fsTransactionIsPending: fsTransactionIsPendingStash
 	} = useFirestore('stash');
-
 	const {
 		updateRecyclablesStatus,
 		response: responseRecyclables,
 		fsTransactionIsPending: fsTransactionIsPendingRecyclables
 	} = useFirestore('recyclables');
-
 	const [totalAmount, setTotalAmount] = useState(0);
 	const [unrecycledItems, setUnrecycledItems] = useState([]);
 	const [stashId, setStashId] = useState(null);
 	const [totalStashRefundAmount, setTotalStashRefundAmount] = useState(0);
+	const [dgPropItemToDelete, setDgPropItemToDelete] = useState({});
 
 	const calculateTotalAmount = (items) => {
 		if (!items) {
@@ -72,17 +70,19 @@ export default function Home() {
 		}
 	};
 
-	const deleteNotificationHandler = () => {
+	const deleteItemHandler = () => {
 		if (dialogRef.current && !dialogRef.current.open) {
-			dialogRef.current.showModal(); // or .show()
+			dialogRef.current.showModal();
 		}
 	};
 
 	const dialogRef = useRef(null);
 
-	const openDialog = () => {
+	const showDeleteDialogHandler = (arg) => {
+		console.log('Invoked from Home component: ', arg);
 		if (dialogRef.current && !dialogRef.current.open) {
 			dialogRef.current.showModal();
+			setDgPropItemToDelete(arg);
 		}
 	};
 
@@ -120,7 +120,7 @@ export default function Home() {
 
 	return (
 		<div className={styles.container}>
-			<Dialog ref={dialogRef} />
+			<Dialog ref={dialogRef} item={dgPropItemToDelete} />
 			<div className={styles['main-content']}>
 				{errorRecyclables && <p>{errorRecyclables}</p>}
 
@@ -143,7 +143,7 @@ export default function Home() {
 					<>
 						{unrecycledItems && unrecycledItems.length > 0 ? (
 							<>
-								<Recyclables items={unrecycledItems} />
+								<Recyclables items={unrecycledItems} dialogHandler={showDeleteDialogHandler} />
 								<div className={styles.action}>
 									<button
 										className={`btn ${styles['btn-drop']}`}
