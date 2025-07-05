@@ -9,8 +9,8 @@ import Recyclables from './Recyclables';
 import Loading from '../../components/Loading';
 import Stash from './Stash';
 import Dialog from '../../components/Dialog';
-import { ToastContainer, toast } from 'react-toastify';
 import { generateUniqueId } from '../../utilities/utilities';
+import emptyRecycling from '../../assets/bottle-plastic-recycling.png';
 
 export default function Home() {
 	const { user } = useAuthContext();
@@ -182,7 +182,7 @@ export default function Home() {
 					</div>
 				)}
 
-				{stash && totalStashRefundAmount && (
+				{stash && totalStashRefundAmount > 0 && (
 					<div className={styles['section-refund']}>
 						<p className={styles['refund-notification']}>
 							Congratulations! You earned a total of
@@ -195,7 +195,10 @@ export default function Home() {
 					stash.length > 0 ? (
 						<Stash stash={stash} user={user.displayName} />
 					) : (
-						<h3>You have not dropped any group of recyclables to a recycling kiosk.</h3>
+						<div className={styles['notif-empty']}>
+							<img src={emptyRecycling} alt='pplstic bottle recycling' />
+							<h3>You have not dropped any group of recyclables to a recycling kiosk.</h3>
+						</div>
 					)
 				) : (
 					''

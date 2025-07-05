@@ -1,8 +1,23 @@
 import { forwardRef } from 'react';
+import { useFirestore } from '../hooks/useFirestore';
 import styles from './Dialog.module.css';
 import deleteIcon from '../assets/delete-orange.png';
 
 const Dialog = forwardRef(function Dialog({ item }, ref) {
+	const { deleteDocument } = useFirestore('recyclables');
+
+	const confirmDelete = () => {
+		console.log(item.name, item.id);
+
+		try {
+			if (item && item.id) {
+				deleteDocument(item.id);
+			}
+		} catch (err) {
+			console.log('error in deleting item: ', err);
+		}
+	};
+
 	return (
 		<dialog ref={ref}>
 			<div className={styles.content}>
@@ -16,7 +31,11 @@ const Dialog = forwardRef(function Dialog({ item }, ref) {
 				<br />
 				<form method='dialog'>
 					<button className={`${styles['btn-dialog']} ${styles.close}`}>Close</button>
-					<button className={`${styles['btn-dialog']} ${styles.confirm}`} value='confirm'>
+					<button
+						className={`${styles['btn-dialog']} ${styles.confirm}`}
+						value='confirm'
+						onClick={confirmDelete}
+					>
 						Confirm
 					</button>
 				</form>
