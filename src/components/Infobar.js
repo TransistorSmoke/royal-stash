@@ -7,13 +7,13 @@ export default function InfoBar() {
 			<img src={bottle} alt='bottle for recycling' className={styles.bottle} />
 			<div className={styles.info}>
 				<p>
-					Here in NSW, a 10c refund is offered for every eligible item (drink container, bottle, can, box,
-					etc) dropped at selected return (recycling) points.
+					In selected states/teritories here in Australia, a 10c refund is offered for every eligible item
+					(drink container, bottle, can, box, etc) dropped at selected return (recycling) points.
 				</p>
 				<p>
 					This app is used to record each item that gets saved and dropped for recycling, calculating the
-					amount you will get for your recycling effort. It also records the recycling (drop-off) history that
-					the user has done over a period of time.
+					amount user gets for recycling effort. It also records the recycling (drop-off) history that the
+					user has done over a period of time.
 				</p>
 			</div>
 		</div>

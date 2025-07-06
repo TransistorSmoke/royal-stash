@@ -56,7 +56,18 @@ const firestoreReducer = (state, action) => {
 
 export const useFirestore = (collection) => {
 	const [response, dispatch] = useReducer(firestoreReducer, initialState);
+
+	/*
+	 * isCancelled
+	 * TRUE if component gets destroyed/unmounted i.e. user goes to other route while transaction is currently running.
+	 * FALSE if any transaction on a document is currently running.
+	 */
 	const [isCancelled, setIsCancelled] = useState(false);
+
+	/*
+	 * fsTransactionIsPending
+	 * TRUE if any transaction starts to run. FALSE if transaction ends - either successfully or not..
+	 */
 	const [fsTransactionIsPending, setFsTransactionIsPending] = useState(false);
 	const collectionRef = appFirestore.collection(collection);
 	const dispatchIfNotCancelled = (action) => {
@@ -114,6 +125,9 @@ export const useFirestore = (collection) => {
 	};
 
 	const updateRecyclablesStatus = async () => {
+		dispatch({ type: 'IS_PENDING' });
+		setFsTransactionIsPending(true);
+
 		try {
 			const querySnapshot = await collectionRef.where('isReturned', '==', false).get();
 			const batch = appFirestore.batch();
@@ -136,17 +150,22 @@ export const useFirestore = (collection) => {
 			// ---------------------------------------
 			dispatch({ type: 'UPDATED_RECYCLABLES_STATUS' });
 			// ---------------------------------------
+
+			setFsTransactionIsPending(false);
 		} catch (err) {
 			console.log(err);
 			dispatchIfNotCancelled({
 				type: 'ERROR',
 				payload: 'Could not update recyclables status'
 			});
+			setFsTransactionIsPending(false);
 		}
 	};
 
 	const deleteDocument = async (id) => {
 		dispatch({ type: 'IS_PENDING' });
+		setFsTransactionIsPending(true);
+
 		try {
 			console.log('Ready to delete document with id: ', id);
 			const docRef = collectionRef.doc(id);
@@ -163,9 +182,16 @@ export const useFirestore = (collection) => {
 			// ---------------------------------------
 			dispatch({ type: 'DELETED_DOCUMENT' });
 			// ---------------------------------------
+
 			console.log('Document deleted successfully');
+			setFsTransactionIsPending(false);
 		} catch (err) {
 			console.error('Error deleting document: ', err);
+			dispatch({
+				type: 'ERROR',
+				payload: err.message
+			});
+			setFsTransactionIsPending(false);
 		}
 	};
 

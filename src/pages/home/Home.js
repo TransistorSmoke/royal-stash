@@ -11,6 +11,7 @@ import Stash from './Stash';
 import Dialog from '../../components/Dialog';
 import { generateUniqueId } from '../../utilities/utilities';
 import emptyRecycling from '../../assets/bottle-plastic-recycling.png';
+import { ToastContainer } from 'react-toastify/unstyled';
 
 export default function Home() {
 	const { user } = useAuthContext();
@@ -70,14 +71,7 @@ export default function Home() {
 		}
 	};
 
-	const deleteItemHandler = () => {
-		if (dialogRef.current && !dialogRef.current.open) {
-			dialogRef.current.showModal();
-		}
-	};
-
 	const dialogRef = useRef(null);
-
 	const showDeleteDialogHandler = (arg) => {
 		console.log('Invoked from Home component: ', arg);
 		if (dialogRef.current && !dialogRef.current.open) {
@@ -86,6 +80,10 @@ export default function Home() {
 		}
 	};
 
+	/*
+	 * HOME component on mount/re-render logic
+	 * ----------------------------------------
+	 */
 	useEffect(() => {
 		const unreturnedForRecycling = recyclables?.filter((item) => !item.isReturned);
 		setUnrecycledItems(unreturnedForRecycling);
@@ -117,6 +115,7 @@ export default function Home() {
 			- Therefore, generate a new unique stash ID for a new group of items.
 		*/
 	}, [recyclables, totalAmount, stash]);
+	// ----------------------------------------
 
 	return (
 		<div className={styles.container}>
