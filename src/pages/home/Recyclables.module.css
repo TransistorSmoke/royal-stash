@@ -23,6 +23,7 @@
 
 .table-component td {
 	border: 1px solid #dededf;
+	word-wrap: break-word;
 }
 
 .table-component tr {
@@ -67,4 +68,10 @@
 tr.hovered {
 	background-color: #f3f3f3;
 	transition: background-color 0.3s ease;
+}
+
+@media (max-width: 480px) {
+	.table-component {
+		font-size: 0.85rem;
+	}
 }

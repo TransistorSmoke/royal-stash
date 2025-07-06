@@ -13,7 +13,7 @@ function App() {
 		<div className='App'>
 			{authIsReady && (
 				<BrowserRouter>
-					<Navbar />
+					{/* <Navbar /> */}
 					<main>
 						<Switch>
 							<Route exact path='/'>

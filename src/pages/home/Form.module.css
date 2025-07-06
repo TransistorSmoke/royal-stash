@@ -8,6 +8,13 @@
 	border: 2px solid #ccc;
 }
 
+select {
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	box-sizing: border-box;
+}
+
 input,
 select {
 	width: 100%;

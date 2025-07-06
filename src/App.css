@@ -71,7 +71,8 @@ main {
 	flex: 1;
 }
 
-/* input,
-select {
-	width: 100%;
-} */
+@media (max-width: 480px) {
+	.btn {
+		font-size: 0.8rem;
+	}
+}

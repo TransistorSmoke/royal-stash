@@ -130,7 +130,7 @@ export default function Home() {
 
 	return (
 		<div className={styles.container}>
-			<Dialog ref={dialogRef} item={dgPropItemToDelete} processCompleteHandler={showDialogProcessCompleteToast} />
+			<Dialog ref={dialogRef} item={dgPropItemToDelete} toastMessageHandler={showDialogProcessCompleteToast} />
 			<div className={styles['main-content']}>
 				{errorRecyclables && <p>{errorRecyclables}</p>}
 
@@ -172,7 +172,8 @@ export default function Home() {
 				)}
 			</div>
 
-			<div className={styles.sidebar}>
+			{/* <div className={styles.sidebar}> */}
+			<div className={`sidebar ${styles.sidebar}`}>
 				<div className={styles.amount}>
 					<h2>Total Amount</h2>
 					<TotalAmount amount={totalAmount} />
@@ -181,7 +182,8 @@ export default function Home() {
 				<div className={styles.divider}></div>
 				<Form uid={user.uid} stashId={stashId} />
 			</div>
-			<div className={styles['sub-content']}>
+
+			{/* <div className={styles['sub-content']}>
 				<div className={styles['stash-header']}>
 					<h1>Recycling History</h1>
 				</div>
@@ -213,7 +215,7 @@ export default function Home() {
 				) : (
 					''
 				)}
-			</div>
+			</div> */}
 			<ToastContainer transition={Bounce} />
 		</div>
 	);

@@ -3,23 +3,19 @@ import { useFirestore } from '../hooks/useFirestore';
 import styles from './Dialog.module.css';
 import deleteIcon from '../assets/delete-orange.png';
 
-const Dialog = forwardRef(function Dialog({ item, processCompleteHandler }, ref) {
+const Dialog = forwardRef(function Dialog({ item, toastMessageHandler }, ref) {
 	const { deleteDocument } = useFirestore('recyclables');
-	const [isSuccess, setIsSuccess] = useState(false);
 
-	const confirmDelete = () => {
+	const confirmDelete = async () => {
 		console.log(item.name, item.id);
 
 		try {
 			if (item && item.id) {
-				setIsSuccess(true);
 				deleteDocument(item.id);
-				console.log('setting isSuccess: ', isSuccess);
-				processCompleteHandler(isSuccess);
+				toastMessageHandler(true);
 			}
 		} catch (err) {
-			setIsSuccess(false);
-			processCompleteHandler(isSuccess);
+			toastMessageHandler(false);
 		}
 	};
 
