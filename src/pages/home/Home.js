@@ -9,9 +9,10 @@ import Recyclables from './Recyclables';
 import Loading from '../../components/Loading';
 import Stash from './Stash';
 import Dialog from '../../components/Dialog';
-import { generateUniqueId } from '../../utilities/utilities';
+import { generateUniqueId, deleteToastSettings as settings } from '../../utilities/utilities';
 import emptyRecycling from '../../assets/bottle-plastic-recycling.png';
-import { ToastContainer } from 'react-toastify/unstyled';
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Home() {
 	const { user } = useAuthContext();
@@ -80,6 +81,16 @@ export default function Home() {
 		}
 	};
 
+	const showDialogProcessCompleteToast = (isSuccess) => {
+		console.log('is success: ', isSuccess);
+
+		if (isSuccess) {
+			toast.success('Item deleted successfully!', settings);
+		} else {
+			toast.error('Error deleting item', settings);
+		}
+	};
+
 	/*
 	 * HOME component on mount/re-render logic
 	 * ----------------------------------------
@@ -115,11 +126,11 @@ export default function Home() {
 			- Therefore, generate a new unique stash ID for a new group of items.
 		*/
 	}, [recyclables, totalAmount, stash]);
-	// ----------------------------------------
+	/* -------End of mounting/rerender logic ----------------- */
 
 	return (
 		<div className={styles.container}>
-			<Dialog ref={dialogRef} item={dgPropItemToDelete} />
+			<Dialog ref={dialogRef} item={dgPropItemToDelete} processCompleteHandler={showDialogProcessCompleteToast} />
 			<div className={styles['main-content']}>
 				{errorRecyclables && <p>{errorRecyclables}</p>}
 
@@ -203,6 +214,7 @@ export default function Home() {
 					''
 				)}
 			</div>
+			<ToastContainer transition={Bounce} />
 		</div>
 	);
 }
