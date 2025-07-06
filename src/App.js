@@ -13,7 +13,7 @@ function App() {
 		<div className='App'>
 			{authIsReady && (
 				<BrowserRouter>
-					{/* <Navbar /> */}
+					<Navbar />
 					<main>
 						<Switch>
 							<Route exact path='/'>
@@ -28,8 +28,6 @@ function App() {
 								{user && <Redirect to='/' />}
 								{!user && <Signup />}
 							</Route>
-
-							{/* // Redirect all other random routes to home */}
 							<Route path='*'>
 								<Redirect to='/' />
 							</Route>
