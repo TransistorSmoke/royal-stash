@@ -1,8 +1,10 @@
 .container {
 	display: grid;
 	grid-template-columns: 2fr 1fr;
-	grid-template-areas: 'main-content sidebar';
 	grid-template-rows: auto auto;
+	grid-template-areas:
+		'main-content sidebar'
+		'sub-content sub-content';
 	margin: 20px 0;
 	gap: 1rem;
 }
@@ -19,6 +21,7 @@
 	margin: 20px;
 	grid-column: 1/3;
 	text-align: center;
+	grid-area: sub-content;
 }
 
 .main-content,
@@ -144,7 +147,8 @@
 		grid-template-columns: 1fr;
 		grid-template-areas:
 			'sidebar'
-			'main-content';
+			'main-content'
+			'sub-content';
 	}
 
 	.header {

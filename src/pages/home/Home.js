@@ -183,7 +183,7 @@ export default function Home() {
 				<Form uid={user.uid} stashId={stashId} />
 			</div>
 
-			{/* <div className={styles['sub-content']}>
+			<div className={styles['sub-content']}>
 				<div className={styles['stash-header']}>
 					<h1>Recycling History</h1>
 				</div>
@@ -215,7 +215,7 @@ export default function Home() {
 				) : (
 					''
 				)}
-			</div> */}
+			</div>
 			<ToastContainer transition={Bounce} />
 		</div>
 	);

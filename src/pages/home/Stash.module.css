@@ -52,3 +52,10 @@
 .weight-strong {
 	font-weight: bold;
 }
+
+@media (max-width: 480px) {
+	.stash,
+	.emphasis {
+		font-size: 0.7rem;
+	}
+}
