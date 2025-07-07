@@ -132,8 +132,6 @@ export default function Home() {
 		<div className={styles.container}>
 			<Dialog ref={dialogRef} item={dgPropItemToDelete} toastMessageHandler={showDialogProcessCompleteToast} />
 			<div className={styles['main-content']}>
-				{errorRecyclables && <p>{errorRecyclables}</p>}
-
 				<div className={styles.header}>
 					<h1 className={styles['title-current-stash']}>Current Recyclable Stash</h1>
 					<span className={styles.groupNum}>
@@ -143,7 +141,13 @@ export default function Home() {
 					</span>
 				</div>
 
-				{!recyclables && (
+				{errorRecyclables && (
+					<div className={styles.notification}>
+						<h3 className={styles.error}>{errorRecyclables}</h3>
+					</div>
+				)}
+
+				{!recyclables && !errorRecyclables && (
 					<div className={styles['loading-section']}>
 						<Loading />
 					</div>
@@ -172,8 +176,7 @@ export default function Home() {
 				)}
 			</div>
 
-			{/* <div className={styles.sidebar}> */}
-			<div className={`sidebar ${styles.sidebar}`}>
+			<div className={`${styles.sidebar}`}>
 				<div className={styles.amount}>
 					<h2>Total Amount</h2>
 					<TotalAmount amount={totalAmount} />
@@ -188,7 +191,13 @@ export default function Home() {
 					<h1>Recycling History</h1>
 				</div>
 
-				{!stash && (
+				{errorStash && (
+					<div className={styles.notification}>
+						<h3 className={styles.error}>{errorStash}</h3>
+					</div>
+				)}
+
+				{!stash && !errorStash && (
 					<div className={styles['loading-section']}>
 						<Loading />
 					</div>

@@ -43,8 +43,8 @@ export const useCollection = (collection, _query, _orderBy = null) => {
 				setError(null);
 			},
 			(err) => {
-				console.log(err);
-				setError(`'Could not fetch data from ${collection} collection'`);
+				// console.log('The error: ', err);
+				setError(`Could not fetch data from ${collection} collection`);
 			}
 		);
 
