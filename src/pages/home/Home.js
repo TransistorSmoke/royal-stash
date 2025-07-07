@@ -59,7 +59,7 @@ export default function Home() {
 
 		if (itemsGroup && itemsGroup.length > 0) {
 			try {
-				await updateRecyclablesStatus();
+				await updateRecyclablesStatus(user);
 				await addStash({
 					uid: user.uid,
 					item: itemsGroup,
@@ -74,7 +74,6 @@ export default function Home() {
 
 	const dialogRef = useRef(null);
 	const showDeleteDialogHandler = (arg) => {
-		console.log('Invoked from Home component: ', arg);
 		if (dialogRef.current && !dialogRef.current.open) {
 			dialogRef.current.showModal();
 			setDgPropItemToDelete(arg);
@@ -82,8 +81,6 @@ export default function Home() {
 	};
 
 	const showDialogProcessCompleteToast = (isSuccess) => {
-		console.log('is success: ', isSuccess);
-
 		if (isSuccess) {
 			toast.success('Item deleted successfully!', settings);
 		} else {

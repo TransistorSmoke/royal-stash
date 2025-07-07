@@ -11,8 +11,6 @@ export default function Login() {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(error);
-
 		if (email === '' || password === '') {
 			setInputFieldErrors('Please fill in your email and password');
 		} else {

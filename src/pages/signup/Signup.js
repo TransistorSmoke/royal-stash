@@ -12,8 +12,6 @@ export default function Signup() {
 
 	const handleSignup = (e) => {
 		e.preventDefault();
-		console.log(displayName, email, password);
-
 		if (email === '' || password === '' || displayName === '') {
 			setInputFieldError('Please fill in your email, password and display name');
 		} else {

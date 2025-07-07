@@ -19,7 +19,6 @@ export default function Recyclable({ items, dialogHandler }) {
 	};
 
 	const onClickDelete = (item) => {
-		console.log('Deleting item with ID:', item.id);
 		dialogHandler(item);
 	};
 
