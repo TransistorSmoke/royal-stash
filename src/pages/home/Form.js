@@ -24,7 +24,6 @@ export default function Form({ uid, stashId }) {
   	*/
 
 		if (name.trim() === '') {
-			console.log('Please enter a name for the item.');
 			setError('Please enter a name for the item.');
 			return;
 		} else {
