@@ -7,8 +7,6 @@ const Dialog = forwardRef(function Dialog({ item, toastMessageHandler }, ref) {
 	const { deleteDocument } = useFirestore('recyclables');
 
 	const confirmDelete = async () => {
-		console.log(item.name, item.id);
-
 		try {
 			if (item && item.id) {
 				deleteDocument(item.id);

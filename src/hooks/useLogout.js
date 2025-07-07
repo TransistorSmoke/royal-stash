@@ -15,29 +15,21 @@ export const useLogout = () => {
 		try {
 			await appAuth.signOut();
 
-			// if (!isCancelled) {
-			// 	dispatch({ type: 'LOGOUT' });
-			// 	setIsPending(false);
-			// 	setError(null);
-			// }
-			dispatch({ type: 'LOGOUT' });
-			setIsPending(false);
-			setError(null);
+			if (!isCancelled) {
+				dispatch({ type: 'LOGOUT' });
+				setIsPending(false);
+				setError(null);
+			}
 		} catch (err) {
-			// if (!isCancelled) {
-			// 	console.log(err.message);
-			// 	setError(err.message);
-			// 	setIsPending(false);
-			// }
-			console.log(err.message);
-			setError(err.message);
-			setIsPending(false);
+			if (!isCancelled) {
+				setError(err.message);
+				setIsPending(false);
+			}
 		}
 	};
-
-	// useEffect(() => {
-	// 	return () => setIsCancelled(true);
-	// }, []);
+	useEffect(() => {
+		return () => setIsCancelled(true);
+	}, []);
 
 	return { logout, error, isPending };
 };

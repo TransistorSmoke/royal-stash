@@ -9,7 +9,6 @@ const initialState = {
 };
 
 const firestoreReducer = (state, action) => {
-	// console.log('action passed: ', action);
 	switch (action.type) {
 		case 'IS_PENDING':
 			return {
@@ -87,49 +86,37 @@ export const useFirestore = (collection) => {
 				createdAt
 			});
 
-			console.log('addedDocument: ', addedDocument);
 			// Uncomment prior to building/deployment
 			// ---------------------------------------
-			// dispatchIfNotCancelled({
-			// 	type: 'ADD_DOCUMENT',
-			// 	payload: addedDocument
-			// });
-			// ---------------------------------------
-
-			// Remove prior to building/deployment
-			// ---------------------------------------
-			dispatch({
+			dispatchIfNotCancelled({
 				type: 'ADD_DOCUMENT',
 				payload: addedDocument
 			});
-			setFsTransactionIsPending(false);
 			// ---------------------------------------
+
+			setFsTransactionIsPending(false);
 		} catch (err) {
 			// Uncomment prior to building/deployment
 			// ---------------------------------------
-			// dispatchIfNotCancelled({
-			// 	type: 'ERROR',
-			// 	payload: err.message
-			// });
-			// ---------------------------------------
-
-			// Remove prior to building/deployment
-			// ---------------------------------------
-			dispatch({
+			dispatchIfNotCancelled({
 				type: 'ERROR',
 				payload: err.message
 			});
-			setFsTransactionIsPending(false);
 			// ---------------------------------------
+
+			setFsTransactionIsPending(false);
 		}
 	};
 
-	const updateRecyclablesStatus = async () => {
+	const updateRecyclablesStatus = async (user) => {
 		dispatch({ type: 'IS_PENDING' });
 		setFsTransactionIsPending(true);
 
 		try {
-			const querySnapshot = await collectionRef.where('isReturned', '==', false).get();
+			const querySnapshot = await collectionRef
+				.where('isReturned', '==', false)
+				.where('uid', '==', user.uid)
+				.get();
 			const batch = appFirestore.batch();
 
 			querySnapshot.forEach((doc) => {
@@ -141,19 +128,13 @@ export const useFirestore = (collection) => {
 
 			// Uncomment prior to building/deployment
 			// ---------------------------------------
-			// dispatchIfNotCancelled({
-			// 	type: 'UPDATED_RECYCLABLES_STATUS',
-			// });
-			// ---------------------------------------
-
-			// Remove prior to building/deployment
-			// ---------------------------------------
-			dispatch({ type: 'UPDATED_RECYCLABLES_STATUS' });
+			dispatchIfNotCancelled({
+				type: 'UPDATED_RECYCLABLES_STATUS'
+			});
 			// ---------------------------------------
 
 			setFsTransactionIsPending(false);
 		} catch (err) {
-			console.log(err);
 			dispatchIfNotCancelled({
 				type: 'ERROR',
 				payload: 'Could not update recyclables status'
@@ -167,23 +148,16 @@ export const useFirestore = (collection) => {
 		setFsTransactionIsPending(true);
 
 		try {
-			console.log('Ready to delete document with id: ', id);
 			const docRef = collectionRef.doc(id);
 			await docRef.delete();
 
 			// Uncomment prior to building/deployment
 			// ---------------------------------------
-			// dispatchIfNotCancelled({
-			// 	type: 'DELETED_DOCUMENT'
-			// });
+			dispatchIfNotCancelled({
+				type: 'DELETED_DOCUMENT'
+			});
 			// ---------------------------------------
 
-			// Remove prior to building/deployment
-			// ---------------------------------------
-			dispatch({ type: 'DELETED_DOCUMENT' });
-			// ---------------------------------------
-
-			console.log('Document deleted successfully');
 			setFsTransactionIsPending(false);
 		} catch (err) {
 			console.error('Error deleting document: ', err);
@@ -195,11 +169,9 @@ export const useFirestore = (collection) => {
 		}
 	};
 
-	// -----------------
-
-	// useEffect(() => {
-	// 	return () => setIsCancelled(true);
-	// }, []);
+	useEffect(() => {
+		return () => setIsCancelled(true);
+	}, []);
 
 	return { addDocument, deleteDocument, updateRecyclablesStatus, response, fsTransactionIsPending };
 };

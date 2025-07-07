@@ -13,10 +13,7 @@ export const useSignup = () => {
 		setIsPending(true);
 
 		try {
-			const response = await appAuth.createUserWithEmailAndPassword(
-				email,
-				password
-			);
+			const response = await appAuth.createUserWithEmailAndPassword(email, password);
 
 			if (!response) {
 				throw new Error('Could not complete signup process');
@@ -30,22 +27,18 @@ export const useSignup = () => {
 			setIsPending(false);
 			setError(null);
 		} catch (err) {
-			// if (!isCancelled) {
-			// 	console.log(err);
-			// 	const e = JSON.parse(err.message);
-			// 	setError(e.message);
-			// 	setIsPending(false);
-			// }
-			console.log();
-			setError(err.message);
-			setIsPending(false);
+			if (!isCancelled) {
+				const e = JSON.parse(err.message);
+				setError(e.message);
+				setIsPending(false);
+			}
 		}
 	};
 
 	// Cleanup function
 	// Cancels state change when attempting to move to another route while sign up is in process
-	// useEffect(() => {
-	// 	return () => setIsCancelled(true);
-	// }, []);
+	useEffect(() => {
+		return () => setIsCancelled(true);
+	}, []);
 	return { error, isPending, signup };
 };
