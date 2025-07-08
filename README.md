@@ -1,7 +1,7 @@
 React Project #1 - Royal Stash
 -------------------------------
 
-[URL](https://royal-stash-590a6.web.app/)
+[Royal Stash](https://royal-stash-590a6.web.app/)
 
 This is what I came up with after learning React's Context API, custom hooks and useReducer.
 
@@ -23,7 +23,7 @@ THE STASH
 - Every time a user 'drops' the whole recyclable collection to the return point, it gets saved as a `stash`.
 - A `stash` shows the collection (stash) ID, the date when the collection is dropped and the total amount refunded for that collection.
 
--------
+
 BACKEND
 -------
 
