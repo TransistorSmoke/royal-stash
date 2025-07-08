@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+React Project #1 - Royal Stash
+-------------------------------
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[URL](https://royal-stash-590a6.web.app/)
 
-## Available Scripts
+This is what I came up with after learning React's Context API, custom hooks and useReducer.
 
-In the project directory, you can run:
+There is this `return & earn` initiative here in Australia where selected recyclables such as bottles, cans and (milk or juice) box can be returned to specific return points.
+10c per item can be refunded. 
 
-### `npm start`
+I thought of making this app as a way to track my recycling records for these items. No CSS framework is used, so CSS might not be optimised. Though, a certain level of responsiveness is implement to allow the view to `degrade` gracefully at different screen sizes.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+THE RECYCLABLES
+----------------
+- This app allows a user to add one item each to his recyclables collection.
+- This collection builds up until it is time to bring everything to the return point for recycling.
+- An item can be deleted from the list. Result of delete action is show as a toast message.
+- An Amount component calculates and shows the user how much can be earned for that current collection after dropping it for recycling.
+- Once the collection is dropped, the list resets and the a new collection is ready to be populated with new recyclable items.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+THE STASH
+---------
+- Every time a user 'drops' the whole recyclable collection to the return point, it gets saved as a `stash`.
+- A `stash` shows the collection (stash) ID, the date when the collection is dropped and the total amount refunded for that collection.
 
-### `npm test`
+-------
+BACKEND
+-------
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Firebase authentication service to for user signup, login and logout features
+- Firestore for storage
+- Firestores rules implementation
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
