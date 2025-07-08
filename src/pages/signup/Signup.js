@@ -35,7 +35,14 @@ export default function Signup() {
 					<span>Password:</span>
 					<input type='password' onChange={(e) => setPassword(e.target.value)} value={password} />
 				</label>
-				<button className='btn btn-signup'>Sign up</button>
+
+				{isPending ? (
+					<button className='btn btn-signup' disabled>
+						Signing up...
+					</button>
+				) : (
+					<button className='btn btn-signup'>Sign up</button>
+				)}
 
 				{error && <p className={styles.error}>{error}</p>}
 				{inputFieldError && <p className={styles.error}>{inputFieldError}</p>}
