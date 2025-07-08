@@ -20,10 +20,7 @@ export const useSignup = () => {
 			}
 
 			await response.user.updateProfile({ displayName });
-
-			//  dispatch login action
 			dispatch({ type: 'LOGIN', payload: response.user });
-
 			setIsPending(false);
 			setError(null);
 		} catch (err) {
@@ -35,10 +32,10 @@ export const useSignup = () => {
 		}
 	};
 
-	// Cleanup function
 	// Cancels state change when attempting to move to another route while sign up is in process
 	useEffect(() => {
 		return () => setIsCancelled(true);
 	}, []);
+
 	return { error, isPending, signup };
 };

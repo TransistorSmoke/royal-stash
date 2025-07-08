@@ -33,7 +33,7 @@ export default function Login() {
 
 				{isPending ? (
 					<button className='btn' disabled>
-						Login
+						Logging in...
 					</button>
 				) : (
 					<button className='btn'>Login</button>
