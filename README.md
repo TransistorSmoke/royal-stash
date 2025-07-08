@@ -1,7 +1,7 @@
 React Project #1 - Royal Stash
 -------------------------------
 
-[Royal Stash](https://royal-stash-590a6.web.app/)
+See demo here: [Royal Stash](https://royal-stash-590a6.web.app/)
 
 This is what I came up with after learning React's Context API, custom hooks and useReducer.
 
