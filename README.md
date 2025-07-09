@@ -4,6 +4,7 @@ React Project #1 - Royal Stash
 See demo here: [Royal Stash](https://royal-stash-590a6.web.app/)
 
 ![Image](https://github.com/user-attachments/assets/f3257c69-81cb-457d-9016-209e70663332)
+![Image](https://github.com/user-attachments/assets/b609c959-9938-487f-92a3-199624afcadd)
 
 This is what I came up with after learning React's Context API, hooks + custom hooks.
 
