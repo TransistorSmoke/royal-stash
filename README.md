@@ -3,6 +3,8 @@ React Project #1 - Royal Stash
 
 See demo here: [Royal Stash](https://royal-stash-590a6.web.app/)
 
+![Image](https://github.com/user-attachments/assets/f3257c69-81cb-457d-9016-209e70663332)
+
 This is what I came up with after learning React's Context API, custom hooks and useReducer.
 
 There is this `return & earn` initiative here in Australia where selected recyclables such as bottles, cans and (milk or juice) box can be returned to specific return points.
