@@ -8,7 +8,10 @@ This is what I came up with after learning React's Context API, custom hooks and
 There is this `return & earn` initiative here in Australia where selected recyclables such as bottles, cans and (milk or juice) box can be returned to specific return points.
 10c per item can be refunded. 
 
-I thought of making this app as a way to track my recycling records for these items. No CSS framework is used, so CSS might not be optimised. Though, a certain level of responsiveness is implement to allow the view to `degrade` gracefully at different screen sizes.
+I thought of making this app as a way to track my recycling records for these items. 
+
+- No CSS framework is used, so CSS might not be optimised. Though, a certain level of responsiveness is implement to allow the view to `degrade` gracefully at different screen sizes.
+- No password reset feature (at least for now)
 
 THE RECYCLABLES
 ----------------
